@@ -1,5 +1,6 @@
 # Reconnaissance vocale
-Ce projet a été réalisé lors d'un projet de groupe de la Formation ML Ops de Datascientest.
+Voice glasses est un projet de groupe qui a été réalisé lors de la Formation ML Ops de Datascientest.
+
 Voici le lien du projet : https://github.com/MarcAllain/mai23_mlops_voice_glasses
 
 ## Contexte : L'intelligence artificielle au service du handicap
