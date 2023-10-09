@@ -1,7 +1,6 @@
 # Reconnaissance vocale
-Formation Datascientest
-Cursus ML Ops
-Promotion mai 2023
+Ce projet a été réalisé lors d'un projet de groupe de la Formation ML Ops de Datascientest.
+Voici le lien du projet : https://github.com/MarcAllain/mai23_mlops_voice_glasses
 
 ## Contexte : L'intelligence artificielle au service du handicap
 L'objectif est de pouvoir retranscrire les paroles d'un interlocuteur sur des lunettes connectées, pour aider les personnes malentendantes.
