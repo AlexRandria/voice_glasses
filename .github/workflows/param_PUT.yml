@@ -1,0 +1,14 @@
+name: deploy-py-lambda-param_PUT
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/param_PUT/**'
+jobs:
+  call-workflow-config-repo:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
+    with:
+      directory: param_PUT

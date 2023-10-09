@@ -1,0 +1,9 @@
+pymysql
+matplotlib==3.7.1
+numpy==1.23.5
+pandas==1.5.3
+tensorflow==2.11.1
+#tensorflow-io[tensorflow]
+tensorflow-io==0.31.0
+#torchmetrics==1.1.0
+jiwer

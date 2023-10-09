@@ -1,0 +1,14 @@
+name: deploy-py-lambda-report_get
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/report_get/**'
+jobs:
+  call-workflow-config-repo:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
+    with:
+      directory: report_get

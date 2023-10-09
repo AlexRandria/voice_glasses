@@ -1,0 +1,14 @@
+name: deploy-py-lambda-predict_get
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/predict_get/**'
+jobs:
+  call-workflow-config-repo:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
+    with:
+      directory: predict_get

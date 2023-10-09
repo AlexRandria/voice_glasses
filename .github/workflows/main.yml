@@ -1,0 +1,33 @@
+name: deploy-py-lambda
+
+on:
+  workflow_call:
+    inputs:
+      directory:
+        required: true
+        type: string
+jobs:
+  reusable_workflow_job:
+    name: Deploy lambda function
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'eu-west-3'
+
+      - name: zip Lambda Function
+        run: |
+          cd ./lambda/${{ inputs.directory }}
+          zip -r9 lambda.zip *
+          cd ../../
+          mv ./lambda/${{ inputs.directory }}/lambda.zip ./
+
+      - name: AWS Deploy
+        run: |
+          aws lambda update-function-code --function-name ${{ inputs.directory }} --zip-file fileb://lambda.zip

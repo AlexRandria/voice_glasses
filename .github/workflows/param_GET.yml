@@ -1,0 +1,14 @@
+name: deploy-py-lambda-param_GET
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/param_GET/**'
+jobs:
+  call-workflow-config-repo:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
+    with:
+      directory: param_GET

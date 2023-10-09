@@ -1,0 +1,14 @@
+name: deploy-py-lambda-LambdaFunctionWithRDS
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/LambdaFunctionWithRDS/**'
+jobs:
+  call-workflow-config-repo:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
+    with:
+      directory: LambdaFunctionWithRDS

@@ -1,0 +1,14 @@
+name: deploy-py-lambda-s3
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/s3/**'
+jobs:
+  call-workflow-config-repo:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
+    with:
+      directory: s3

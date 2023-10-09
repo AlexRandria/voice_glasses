@@ -1,0 +1,49 @@
+name: deploy-py-lambda-predict-get-2
+
+on:
+  push:
+    branches:
+      - Alex
+    paths:
+      - 'lambda/predict_get_image/**'
+
+env:
+  AWS_REGION: eu-west-3                   # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: lambda-predict           # set this to your Amazon ECR repository name
+  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'eu-west-3'
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          cd ./lambda/predict_get_image/
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          echo "Start push"
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Update aws lambda"
+          aws lambda update-function-code --function-name predict_recovoc --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
